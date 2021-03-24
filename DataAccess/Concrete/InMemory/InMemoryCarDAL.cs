@@ -3,11 +3,12 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    public class InMemoryCarDAL : ICarDAL
+    public class InMemoryCarDAL : ICarDal
     {
         List<Car> _cars; //Global Variable
 
@@ -39,11 +40,21 @@ namespace DataAccess.Concrete.InMemory
             return _cars;
         }
 
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
         //Şartı sağlayan tüm durumlardan yeni bir liste oluşur.
         public List<Car> GetById(int brandId)
         {
             return _cars.Where(c => c.BrandId == brandId).ToList();
 
+        }
+
+        public Car GetT(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
         }
 
         public void Uptade(Car car)
