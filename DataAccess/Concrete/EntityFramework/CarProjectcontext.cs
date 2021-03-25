@@ -11,7 +11,7 @@ namespace DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
         {
             //sql server connection
-            optionbuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=CarProject; Trusted_Connection=true"); //trusted connection = kullanıcı adı ve şifresiz giriş
+            optionbuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB=CarProject; Trusted_Connection=true"); //trusted connection = kullanıcı adı ve şifresiz giriş
                                             //yukarıdaki string yapısı = Connection String
         }
         public DbSet<Car> Cars { get; set; }

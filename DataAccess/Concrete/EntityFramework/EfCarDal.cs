@@ -1,69 +1,27 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, CarProjectContext>, ICarDal
     {
-        public void Add(Car entity)
+        public List<CarDetailDto> GetCarDetails()
         {
             using (CarProjectContext context = new CarProjectContext())
             {
-                //referansı yakala, sil, kaydet
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = Microsoft.EntityFrameworkCore.EntityState.Added;
-                context.SaveChanges();
-
-
+                var result = from c in context.Cars
+                             join b in context.Brands on c.BrandId equals b.Id
+                             join cl in context.Colors on c.ColorId equals cl.Id
+                             select new CarDetailDto { CarId = c.CarId, CarName = c.CarName, BrandName = b.BrandName, DailyPrice = (int)c.DailyPrice, ColorName = cl.ColorName };
+                return result.ToList();
             }
-        }
-
-        public void Delete(Car entity)
-        {
-            using (CarProjectContext context = new CarProjectContext())
-            {
-                //referansı yakala, sil, kaydet
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-                context.SaveChanges();
-
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (CarProjectContext context = new CarProjectContext())
-            {
-                //filter null ise ilk context, değil sadise ikinci context çalışır
-                return context.Set<Car>().ToList();
-                             
-            }
-        }
-
-        public Car GetT(Expression<Func<Car, bool>> filter = null)
-        {
-            //dispose -- using metodu sayesinde context new lendikten sonra kaydedilmeden silinir
-            using (CarProjectContext context = new CarProjectContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public void Uptade(Car entity)
-        {
-            using (CarProjectContext context = new CarProjectContext())
-            {
-                //referansı yakala, sil, kaydet
-                var uptadedEntity = context.Entry(entity);
-                uptadedEntity.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                context.SaveChanges();
-            }
-                
-
         }
     }
 }

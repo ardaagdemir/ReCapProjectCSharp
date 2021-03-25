@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace DataAccess.Concrete.InMemory
         {
             _cars = new List<Car>
             {
-                new Car{Id=1, BrandId=1, ColorId=0034, ModelYear=2005, DailyPrice=75, Description="BMW"},
-                new Car{Id=2, BrandId=1, ColorId=0015, ModelYear=2021, DailyPrice=2000, Description="BMW"},
-                new Car{Id=3, BrandId=2, ColorId=0027, ModelYear=2015, DailyPrice=200, Description="Volkwagen"},
-                new Car{Id=4, BrandId=3, ColorId=0108, ModelYear=2010, DailyPrice=125, Description="Audi"}
+                new Car{CarId=1, BrandId=1, ColorId=0034, ModelYear=2005, DailyPrice=75, Description="BMW"},
+                new Car{CarId=2, BrandId=1, ColorId=0015, ModelYear=2021, DailyPrice=2000, Description="BMW"},
+                new Car{CarId=3, BrandId=2, ColorId=0027, ModelYear=2015, DailyPrice=200, Description="Volkwagen"},
+                new Car{CarId=4, BrandId=3, ColorId=0108, ModelYear=2010, DailyPrice=125, Description="Audi"}
             };
         }
         public void Add(Car car)
@@ -31,7 +32,7 @@ namespace DataAccess.Concrete.InMemory
         {
             //LINQ
             //SingleOrDefault tek bir ürünü bulmak için kullanılmştır.
-            Car carToDelete = _cars.SingleOrDefault(c => c.Id == car.Id);
+            Car carToDelete = _cars.SingleOrDefault(c => c.CarId == car.CarId);
             _cars.Remove(carToDelete);
         }
 
@@ -52,14 +53,14 @@ namespace DataAccess.Concrete.InMemory
 
         }
 
-        public Car GetT(Expression<Func<Car, bool>> filter = null)
+        public Car Get(Expression<Func<Car, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
 
         public void Uptade(Car car)
         {
-            Car carsToUptade = _cars.SingleOrDefault(c => c.Id == car.Id);
+            Car carsToUptade = _cars.SingleOrDefault(c => c.CarId == car.CarId);
 
             carsToUptade.BrandId = car.BrandId;
             carsToUptade.ColorId = car.ColorId;
@@ -67,6 +68,11 @@ namespace DataAccess.Concrete.InMemory
             carsToUptade.DailyPrice = car.DailyPrice;
             carsToUptade.Description = car.Description;
             
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
         }
     }
 }
