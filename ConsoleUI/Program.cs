@@ -13,10 +13,10 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
 
 
-            Console.WriteLine("\n" + "Araçları açıklama ve günlük fiyata göre listele");
+            
             foreach (var car in carManager.GetAll())
             {
-                Console.WriteLine("Car : " + car.CarName);
+                Console.WriteLine("Marka-Model" + "-->" + " " + car.Description + " " + car.CarName + " " + "Fiyat:" + car.DailyPrice );
             }
 
         }

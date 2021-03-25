@@ -18,6 +18,7 @@ namespace DataAccess.Concrete.EntityFramework
                 addedEntity.State = Microsoft.EntityFrameworkCore.EntityState.Added;
                 context.SaveChanges();
 
+
             }
         }
 
@@ -37,15 +38,15 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (CarProjectContext context = new CarProjectContext())
             {
-                //filter null ise ilk context, değil ise ikinci context çalışır
-                return filter == null
-                    ?context.Set<Car>().ToList() 
-                    :context.Set<Car>().Where(filter).ToList();           
+                //filter null ise ilk context, değil sadise ikinci context çalışır
+                return context.Set<Car>().ToList();
+                             
             }
         }
 
         public Car GetT(Expression<Func<Car, bool>> filter = null)
         {
+            //dispose -- using metodu sayesinde context new lendikten sonra kaydedilmeden silinir
             using (CarProjectContext context = new CarProjectContext())
             {
                 return context.Set<Car>().SingleOrDefault(filter);
