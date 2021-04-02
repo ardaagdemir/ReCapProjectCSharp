@@ -32,7 +32,7 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             foreach (var brand in brandManager.GetAll())
             {
-                Console.WriteLine(brand.BrandName);
+                Console.WriteLine();
             }
         }
 
@@ -40,12 +40,12 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            var result = carManager.GetCarDetails();
+            var result = carManager.GetAll();
             if (result.Success==true)
             {
                 foreach (var car in result.Data)
                 {
-                    Console.WriteLine(car.CarName + "/" + car.BrandName);
+                    Console.WriteLine(car.CarName + "/" + car.DailyPrice);
                 }
             }
             else

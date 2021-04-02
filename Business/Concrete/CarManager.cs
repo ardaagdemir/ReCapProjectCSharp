@@ -13,22 +13,31 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        
 
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
+            
         }
 
         public IResult Add(Car car)
         {
-            _carDal.Add(car);
-
-            if (car.CarName.Length < 2)
+            
+            if (car.DailyPrice <= 0)
             {
-                return new ErrorDataResult(Messages.CarNameInvalid);
+                _carDal.Add(car);
+                return new ErrorResult(Messages.Error);
+                
             }
-
             return new SuccessResult(Messages.CarAdded);
+
+        }
+
+        public IResult Delete(Car car)
+        {
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.CarDeleted);
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -62,6 +71,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
-        
+        public IResult Update(Car car)
+        {
+            _carDal.Uptade(car);
+            return new SuccessResult(Messages.CarUpdated);
+        }
     }
 }
