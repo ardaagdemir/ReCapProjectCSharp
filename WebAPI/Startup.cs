@@ -4,16 +4,9 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI
 {
@@ -31,23 +24,23 @@ namespace WebAPI
         {
             services.AddControllers();
 
-            services.AddSingleton<ICarService, CarManager>();
-            services.AddSingleton<ICarDal, EfCarDal>();
+            //services.AddSingleton<ICarService, CarManager>();
+            //services.AddSingleton<ICarDal, EfCarDal>();
 
-            services.AddSingleton<IBrandService, BrandManager>();
-            services.AddSingleton<IBrandDal, EfBrandDal>();
+            //services.AddSingleton<IBrandService, BrandManager>();
+            //services.AddSingleton<IBrandDal, EfBrandDal>();
 
-            services.AddSingleton<IColorService, ColorManager>();
-            services.AddSingleton<IColorDal, EfColorDal>();
+            //services.AddSingleton<IColorService, ColorManager>();
+            //services.AddSingleton<IColorDal, EfColorDal>();
 
-            services.AddSingleton<ICustomersService, CustomerManager>();
-            services.AddSingleton<ICustomersDal, EfCustomersDal>();
+            //services.AddSingleton<ICustomersService, CustomerManager>();
+            //services.AddSingleton<ICustomersDal, EfCustomersDal>();
 
-            services.AddSingleton<IRentalsService, RentalsManager>();
-            services.AddSingleton<IRentalsDal, EfRentalsDal>();
+            //services.AddSingleton<IRentalsService, RentalsManager>();
+            //services.AddSingleton<IRentalsDal, EfRentalsDal>();
 
-            services.AddSingleton<IUsersService, UsersManager>();
-            services.AddSingleton<IUsersDal, EfUsersDal>();
+            //services.AddSingleton<IUsersService, UsersManager>();
+            //services.AddSingleton<IUsersDal, EfUsersDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
