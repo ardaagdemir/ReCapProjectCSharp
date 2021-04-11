@@ -18,12 +18,11 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        ICarDal _carDal;
-
-
+        ICarDal _carDal;        
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
+            
         }
 
         [ValidationAspect(typeof(CarValidator))]

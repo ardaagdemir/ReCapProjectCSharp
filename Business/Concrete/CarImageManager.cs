@@ -10,31 +10,35 @@ using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 namespace Business.Concrete
 {
     public class CarImageManager : ICarImageService
     {
         ICarImageDal _carImageDal;
+
         public CarImageManager(ICarImageDal carImageDal)
         {
             _carImageDal = carImageDal;
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
-        public IResult Add(IFormFile file, CarImage image)
+        public IResult Add(IFormFile file, CarImage carImage)
         {
-            IResult result = BusinessRules.Run(CheckIfCarImageLimitExceded(image.CarId));
+            IResult result = BusinessRules.Run(CheckIfCarImageLimitExceeded(carImage.CarId));
+
             if (result != null)
             {
                 return result;
             }
 
-            image.ImagePath = FileHelper.Add(file);
-            image.Date = DateTime.Now;
-            _carImageDal.Add(image);
-            return new SuccessResult(Messages.CarImageAdded);
+            carImage.ImagePath = FileHelper.Add(file);
+            carImage.Date = DateTime.Now;
+            _carImageDal.Add(carImage);
+            return new SuccessResult();
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
@@ -42,7 +46,7 @@ namespace Business.Concrete
         {
             FileHelper.Delete(Environment.CurrentDirectory + @"\wwwroot\" + carImage.ImagePath);
             _carImageDal.Delete(carImage);
-            return new SuccessResult(Messages.CarImagedeDeleted);
+            return new SuccessResult();
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
@@ -55,23 +59,31 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
-        public IDataResult<List<CarImage>> GetAll()
+        public IDataResult<CarImage> GetById(int id)
         {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImageListed);
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarImageId == id));
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
-        public IDataResult<List<CarImage>> GetCarImageCarId(int id)
+        public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id));
+            //List<CarImage> carImageList = _carImageDal.GetAll(c => c.CarId == carId);
+            return new SuccessDataResult<List<CarImage>>(CheckIfAnyCarImageExists(carId));
+
         }
 
-        private IResult CheckIfCarImageLimitExceded(int Carid)
+        [ValidationAspect(typeof(CarImageValidator))]
+        public IDataResult<List<CarImage>> GetAll()
         {
-            var result = _carImageDal.GetAll(c => c.CarId == Carid).Count;
-            if (result > 5)
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
+        }
+
+        private IResult CheckIfCarImageLimitExceeded(int carId)
+        {
+            var carImagecount = _carImageDal.GetAll(p => p.CarId == carId).Count;
+            if (carImagecount >= 5)
             {
-                return new ErrorResult(Messages.CarImageCountofCarImageError);
+                return new ErrorResult(Messages.CarImageLimitedExists);
             }
 
             return new SuccessResult();
