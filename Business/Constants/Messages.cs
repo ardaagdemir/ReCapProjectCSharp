@@ -48,5 +48,9 @@ namespace Business.Constants
         public static string RentalAddedError = "Araç teslim edilmediği için tekrar kiraya verilemez";
 
 
+        public static string CarImageAdded = "Araba resmi eklendi";
+        public static string CarImagedeDeleted = "Araba resmi silindi";
+        public static string CarImageUpdated = "Araba resmi güncellendi";
+        public static string CarImageLimitedExists = "Araba resmi 5 adetten fazla eklenemez";
     }
 }

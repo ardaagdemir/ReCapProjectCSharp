@@ -51,7 +51,7 @@ namespace Core.DataAccess.EntityFramework
                 return context.Set<TEntity>().SingleOrDefault(filter);
             }
         }
-        public void Uptade(TEntity entity)
+        public void Update(TEntity entity)
         {
             using (TContext context = new TContext())
             {

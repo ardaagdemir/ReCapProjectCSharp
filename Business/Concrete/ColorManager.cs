@@ -37,7 +37,7 @@ namespace Business.Concrete
 
         public IResult Update(Color color)
         {
-            _colorDal.Uptade(color);
+            _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);
         }
     }

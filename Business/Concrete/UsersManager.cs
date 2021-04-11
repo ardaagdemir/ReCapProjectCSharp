@@ -11,9 +11,9 @@ namespace Business.Concrete
 {
     public class UsersManager : IUsersService
     {
-        IUsersDal _usersDal;
+        IUserDal _usersDal;
 
-        public UsersManager(IUsersDal usersDal)
+        public UsersManager(IUserDal usersDal)
         {
             _usersDal = usersDal;
         }
@@ -36,7 +36,7 @@ namespace Business.Concrete
 
         public IResult Update(Users users)
         {
-            _usersDal.Uptade(users);
+            _usersDal.Update(users);
             return new SuccessResult(Messages.UserUpdated);
         }
     }

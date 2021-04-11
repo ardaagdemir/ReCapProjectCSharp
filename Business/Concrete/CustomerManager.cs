@@ -12,9 +12,9 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomersService
     {
-        ICustomersDal _customersDal;
+        ICustomerDal _customersDal;
 
-        public CustomerManager(ICustomersDal customersDal)
+        public CustomerManager(ICustomerDal customersDal)
         {
             _customersDal = customersDal;
         }
@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         public IResult Update(Customers customers)
         {
-            _customersDal.Uptade(customers);
+            _customersDal.Update(customers);
             return new SuccessResult(Messages.CustomerUpdated);
         }
     }

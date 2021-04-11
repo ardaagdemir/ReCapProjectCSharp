@@ -38,7 +38,7 @@ namespace Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            _brandDal.Uptade(brand);
+            _brandDal.Update(brand);
             return new SuccessResult(Messages.BrandUpdated);
         }
     }

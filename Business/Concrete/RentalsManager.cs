@@ -13,9 +13,9 @@ namespace Business.Concrete
 {
     public class RentalsManager : IRentalsService
     {
-        IRentalsDal _rentalsDal;
+        IRentalDal _rentalsDal;
 
-        public RentalsManager(IRentalsDal rentalsDal)
+        public RentalsManager(IRentalDal rentalsDal)
         {
             _rentalsDal = rentalsDal;
         }
@@ -44,11 +44,11 @@ namespace Business.Concrete
 
         public IResult Update(Rentals rentals)
         {
-            _rentalsDal.Uptade(rentals);
+            _rentalsDal.Update(rentals);
             return new SuccessResult(Messages.RentalUpdated);
         }
 
-        public IResult UptadeReturnDate(Rentals rentals)
+        public IResult UpdateReturnDate(Rentals rentals)
         {
             var result = _rentalsDal.GetAll(r => r.Id == rentals.Id);
             var uptadeRental = result.LastOrDefault();
@@ -59,7 +59,7 @@ namespace Business.Concrete
             }
 
             uptadeRental.ReturnDate = rentals.ReturnDate;
-            _rentalsDal.Uptade(rentals);
+            _rentalsDal.Update(rentals);
             return new SuccessResult(Messages.RentalUpdateReturnDate);
         }
     }

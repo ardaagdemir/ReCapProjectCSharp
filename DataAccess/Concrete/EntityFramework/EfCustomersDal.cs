@@ -8,7 +8,7 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCustomersDal : EfEntityRepositoryBase<Customers, CarProjectContext>, ICustomersDal
+    public class EfCustomersDal : EfEntityRepositoryBase<Customer, CarProjectContext>, ICustomerDal
     {
         public List<CustomerDetailDto> GetCustomerDetails()
         {

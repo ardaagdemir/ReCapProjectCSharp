@@ -10,9 +10,9 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfRentalsDal : EfEntityRepositoryBase<Rentals, CarProjectContext>, IRentalsDal
+    public class EfRentalsDal : EfEntityRepositoryBase<Rental, CarProjectContext>, IRentalDal
     {
-        public List<CarRentalDetailDto> GetCarRentalDetails(Expression<Func<Rentals, bool>> filter = null)
+        public List<CarRentalDetailDto> GetCarRentalDetails(Expression<Func<Rental, bool>> filter = null)
         {
             using (CarProjectContext context = new CarProjectContext())
             {
@@ -20,13 +20,13 @@ namespace DataAccess.Concrete.EntityFramework
                              join c in context.Cars
                              on rt.CarId equals c.CarId
                              join col in context.Colors
-                             on c.ColorId equals col.Id
+                             on c.ColorId equals col.ColorId
                              join b in context.Brands
-                             on c.BrandId equals b.Id
+                             on c.BrandId equals b.BrandId
                              join cus in context.Customers
                              on rt.CustomerId equals cus.Id
                              join us in context.Users
-                             on cus.UserId equals us.Id
+                             on cus.UserId equals us.UserId
                              select new CarRentalDetailDto
                              {
                                  RentalId = rt.Id,
