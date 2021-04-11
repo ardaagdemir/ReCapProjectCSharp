@@ -1,7 +1,7 @@
-﻿using FluentValidation;
+﻿using Entities.Concrete;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
@@ -10,6 +10,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ColorValidator()
         {
+            RuleFor(cl => cl).NotEmpty();
+            RuleFor(cl => cl.ColorName).MinimumLength(2);
         }
     }
 }

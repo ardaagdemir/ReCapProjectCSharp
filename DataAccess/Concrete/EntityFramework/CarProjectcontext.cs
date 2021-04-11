@@ -11,8 +11,8 @@ namespace DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionbuilder)
         {
             //sql server connection
-            optionbuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB=CarProject; Trusted_Connection=true"); //trusted connection = kullanıcı adı ve şifresiz giriş
-                                            //yukarıdaki string yapısı = Connection String
+            optionbuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB=CarProject; Trusted_Connection=true"); 
+                                            
         }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -20,10 +20,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<User> Users { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CarImage> CarImages { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Car>().ToTable("Cars"); 
-        }
     }
 }

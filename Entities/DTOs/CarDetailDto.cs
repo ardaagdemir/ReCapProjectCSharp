@@ -11,7 +11,8 @@ namespace Entities.DTOs
         public string CarName { get; set; }
         public string BrandName { get; set; }
         public string ColorName { get; set; }
-        public int DailyPrice { get; set; }
+        public string ImagePath { get; set; }
+        public decimal DailyPrice { get; set; }
     }
 }
 

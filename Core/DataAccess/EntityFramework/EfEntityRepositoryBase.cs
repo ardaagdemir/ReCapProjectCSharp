@@ -16,7 +16,6 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                //referansı yakala, sil, kaydet
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = Microsoft.EntityFrameworkCore.EntityState.Added;
                 context.SaveChanges();
@@ -37,15 +36,15 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                //filter null ise ilk context, değil sadise ikinci context çalışır
-                return context.Set<TEntity>().ToList();
-
+                return filter == null
+                    ? context.Set<TEntity>().ToList()
+                    : context.Set<TEntity>().Where(filter).ToList();
             }
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter = null)
         {
-            //dispose -- using metodu sayesinde context new lendikten sonra kaydedilmeden silinir
+            
             using (TContext context = new TContext())
             {
                 return context.Set<TEntity>().SingleOrDefault(filter);

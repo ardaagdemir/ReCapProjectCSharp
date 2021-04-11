@@ -13,17 +13,17 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RentalsController : ControllerBase
     {
-        IRentalsService _rentalsService;
+        IRentalService _rentalService;
 
-        public RentalsController(IRentalsService rentalsService)
+        public RentalsController(IRentalService rentalsService)
         {
-            _rentalsService = rentalsService;
+            _rentalService = rentalsService;
         }
 
-        [HttpGet("getcardetaildto")]
-        public IActionResult GetCarDetailDto()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
-            var result = _rentalsService.GetCarDetailDto();
+            var result = _rentalService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -31,32 +31,23 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcarrentaldto")]
-        public IActionResult GetCarRentalDto()
+        [HttpGet("getdetail")]
+        public IActionResult GetRentalDetail()
         {
-            var result = _rentalsService.GetCarRentalDto();
+            var result = _rentalService.GetCarRentalDetail();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
+
+
 
         [HttpPost("add")]
-        public IActionResult Add(Rental rentals)
+        public IActionResult Add(Rental rental)
         {
-            var result = _rentalsService.Add(rentals);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpPost("delete")]
-        public IActionResult Delete(Rental rentals)
-        {
-            var result = _rentalsService.Delete(rentals);
+            var result = _rentalService.Add(rental);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,9 +56,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Rental rentals)
+        public IActionResult Update(Rental rental)
         {
-            var result = _rentalsService.Update(rentals);
+            var result = _rentalService.Update(rental);
             if (result.Success)
             {
                 return Ok(result);
@@ -75,17 +66,15 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("uptadereturndate")]
-        public IActionResult UpdateReturnDate(Rental rentals)
+        [HttpPost("delete")]
+        public IActionResult Delete(Rental rental)
         {
-            var result = _rentalsService.UpdateReturnDate(rentals);
+            var result = _rentalService.Delete(rental);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-
     }
 }

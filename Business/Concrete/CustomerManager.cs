@@ -10,41 +10,38 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class CustomerManager : ICustomersService
+    public class CustomerManager : ICustomerService
     {
-        ICustomerDal _customersDal;
+        ICustomerDal _customerDal;
 
-        public CustomerManager(ICustomerDal customersDal)
+        public CustomerManager(ICustomerDal customerDal)
         {
-            _customersDal = customersDal;
+            _customerDal = customerDal;
         }
 
-        public IResult Add(Customer customers)
+        public IResult Add(Customer customer)
         {
-            _customersDal.Add(customers);
+
+            _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
         }
 
-        public IResult Delete(Customer customers)
+        public IResult Update(Customer customer)
         {
-            _customersDal.Delete(customers);
+
+            _customerDal.Update(customer);
+            return new SuccessResult(Messages.CustomerUpdated);
+        }
+
+        public IResult Delete(Customer customer)
+        {
+            _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccessDataResult<List<Customer>>(_customersDal.GetAll(), Messages.CustomerListed);
-        }
-
-        public IDataResult<List<CustomerDetailDto>> GetCustomerDetail()
-        {
-            return new SuccessDataResult<List<CustomerDetailDto>>(_customersDal.GetCustomerDetails());
-        }
-
-        public IResult Update(Customer customers)
-        {
-            _customersDal.Update(customers);
-            return new SuccessResult(Messages.CustomerUpdated);
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
         }
     }
 }

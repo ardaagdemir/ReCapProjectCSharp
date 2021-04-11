@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IUsersService
+    public interface IUserService
     {
         IDataResult<List<User>> GetAll();
 
-        IResult Add(User users);
-        IResult Delete(User users);
-        IResult Update(User users);
+        IResult Add(User user);
+        IResult Delete(User user);
+        IResult Update(User user);
     }
 }

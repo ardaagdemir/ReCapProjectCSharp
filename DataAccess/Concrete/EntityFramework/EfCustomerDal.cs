@@ -8,11 +8,8 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCustomersDal : EfEntityRepositoryBase<Customer, CarProjectContext>, ICustomerDal
+    public class EfCustomerDal : EfEntityRepositoryBase<Customer, CarProjectContext>, ICustomerDal
     {
-        public List<CustomerDetailDto> GetCustomerDetails()
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

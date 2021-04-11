@@ -3,6 +3,7 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -18,19 +19,36 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        
+
 
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            
         }
 
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
+            IResult result = BusinessRules.Run(CheckIfCarNameExists(car.CarName));
+            if (result != null)
+            {
+                return result;
+            }
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
+
+        }
+
+        [ValidationAspect(typeof(CarValidator))]
+        public IResult Update(Car car)
+        {
+            IResult result = BusinessRules.Run(CheckIfCarNameExists(car.CarName));
+            if (result != null)
+            {
+                return result;
+            }
+            _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);
         }
 
         public IResult Delete(Car car)
@@ -41,39 +59,38 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 3)
-            {
-                return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.MaintenanceTime);
-            }
-
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), (string)Messages.CarsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
 
         public IDataResult<List<Car>> GetByUnitPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice<=max));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max), Messages.CarsListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
-
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
-        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
-        public IResult Update(Car car)
+        private IResult CheckIfCarNameExists(string carName)
         {
-            _carDal.Update(car);
-            return new SuccessResult(Messages.CarUpdated);
+            var result = _carDal.GetAll(c => c.CarName == carName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.CarNameAlreadyExists);
+            }
+
+            return new SuccessResult();
         }
     }
 }
