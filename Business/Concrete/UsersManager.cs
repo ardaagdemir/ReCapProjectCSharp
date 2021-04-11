@@ -17,24 +17,24 @@ namespace Business.Concrete
         {
             _usersDal = usersDal;
         }
-        public IResult Add(Users users)
+        public IResult Add(User users)
         {
             _usersDal.Add(users);
             return new SuccessResult(Messages.UserAdded);
         }
 
-        public IResult Delete(Users users)
+        public IResult Delete(User users)
         {
             _usersDal.Delete(users);
             return new SuccessResult(Messages.UserDeleted);
         }
 
-        public IDataResult<List<Users>> GetAll()
+        public IDataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<Users>>(_usersDal.GetAll(), Messages.UserListed);
+            return new SuccessDataResult<List<User>>(_usersDal.GetAll(), Messages.UserListed);
         }
 
-        public IResult Update(Users users)
+        public IResult Update(User users)
         {
             _usersDal.Update(users);
             return new SuccessResult(Messages.UserUpdated);

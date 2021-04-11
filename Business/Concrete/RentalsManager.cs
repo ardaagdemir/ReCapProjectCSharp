@@ -20,21 +20,21 @@ namespace Business.Concrete
             _rentalsDal = rentalsDal;
         }
 
-        public IResult Add(Rentals rentals)
+        public IResult Add(Rental rentals)
         {
             _rentalsDal.Add(rentals);
             return new SuccessResult(Messages.RentalAdded);
         }
 
-        public IResult Delete(Rentals rentals)
+        public IResult Delete(Rental rentals)
         {
             _rentalsDal.Delete(rentals);
             return new SuccessResult(Messages.RentalDeleted);
         }
 
-        public IDataResult<List<Rentals>> GetCarDetailDto()
+        public IDataResult<List<Rental>> GetCarDetailDto()
         {
-            return new SuccessDataResult<List<Rentals>>(_rentalsDal.GetAll(), Messages.RentalListed);
+            return new SuccessDataResult<List<Rental>>(_rentalsDal.GetAll(), Messages.RentalListed);
         }
 
         public IDataResult<List<CarRentalDetailDto>> GetCarRentalDto()
@@ -42,13 +42,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarRentalDetailDto>>(_rentalsDal.GetCarRentalDetails());
         }
 
-        public IResult Update(Rentals rentals)
+        public IResult Update(Rental rentals)
         {
             _rentalsDal.Update(rentals);
             return new SuccessResult(Messages.RentalUpdated);
         }
 
-        public IResult UpdateReturnDate(Rentals rentals)
+        public IResult UpdateReturnDate(Rental rentals)
         {
             var result = _rentalsDal.GetAll(r => r.Id == rentals.Id);
             var uptadeRental = result.LastOrDefault();

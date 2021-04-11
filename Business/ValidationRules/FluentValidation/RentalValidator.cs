@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class RentalsValidator : AbstractValidator<Rentals>
+    public class RentalValidator : AbstractValidator<Rental>
     {
-        public RentalsValidator()
+        public RentalValidator()
         {
             RuleFor(r => r.CarId).NotEmpty();
             RuleFor(r => r.CustomerId).NotEmpty();
