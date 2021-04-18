@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -34,6 +35,7 @@ namespace Business.Constants
         public static string UserNotDeleted = "HATA. Kullanıcı Silinemedi";
         public static string FirstNameLastNameInvalid = "İsim veya Soyisim Girilmemiş";
         public static string EMailAdressAlreadyExists = "Bu mail adresi sistemde kayıtlıdır";
+        public static string AuthorizationDenied = "Yetkiniz yok";
 
         public static string CustomerAdded = "Müşteri Başarıyla Eklendi";
         public static string CustomerUpdated = "Müşteri Başarıyla Güncellendi";
@@ -57,7 +59,14 @@ namespace Business.Constants
         public static string CarImageLimitedExists = "Araba resmi 5 adetten fazla eklenemez";
         public static string CarImageListed = "Araba resimleri listelendi";
         public static string CarImageCountofCarImageError = "En fazla 5 resim eklenebilir";
-        
+
+        public static string UserNotFound = "Kullanıcı bulunamadı";
+        public static string PasswordError = "Şifre hatalı";
+        public static string SuccessfulLogin = "Sisteme giriş başarılı";
+        public static string UserAlreadyExists = "Bu kullanıcı zaten mevcut";
+        public static string UserRegistered = "Kullanıcı başarıyla kaydedildi";
+        public static string AccessTokenCreated = "Access token başarıyla oluşturuldu";
+
 
     }
 }

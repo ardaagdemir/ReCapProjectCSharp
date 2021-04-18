@@ -1,4 +1,4 @@
-﻿using Core.Entities;
+﻿using Core.Entities.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -54,7 +54,7 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                //referansı yakala, sil, kaydet
+                
                 var uptadedEntity = context.Entry(entity);
                 uptadedEntity.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 context.SaveChanges();

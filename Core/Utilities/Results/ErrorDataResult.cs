@@ -4,14 +4,22 @@ using System.Text;
 
 namespace Core.Utilities.Results
 {
-    public class ErrorDataResult : Result
+    public class ErrorDataResult<T> : DataResult<T>
     {
-        public ErrorDataResult(string message) : base(false, message)
+        public ErrorDataResult(T data, string message) : base(data, false, message)
         {
 
         }
 
-        public ErrorDataResult() : base(false)
+        public ErrorDataResult(T data) : base(data, false)
+        {
+
+        }
+        public ErrorDataResult(string message) : base(default, false, message)
+        {
+
+        }
+        public ErrorDataResult() : base(default, false)
         {
 
         }

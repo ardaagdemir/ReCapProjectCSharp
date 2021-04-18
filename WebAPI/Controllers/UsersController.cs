@@ -20,18 +20,7 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll()
-        {
-            var result = _userService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpPost("add")]
+        [HttpPost("insert")]
         public IActionResult Add(User user)
         {
             var result = _userService.Add(user);
@@ -41,6 +30,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
 
         [HttpPost("update")]
         public IActionResult Update(User user)
@@ -53,6 +43,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+
         [HttpPost("delete")]
         public IActionResult Delete(User user)
         {
@@ -63,5 +54,6 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
     }
 }

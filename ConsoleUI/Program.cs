@@ -29,10 +29,10 @@ namespace ConsoleUI
                 FirstName = "Arda",
                 LastName = "Ağdemir",
                 Email = "ardagdemir@gmail.com",
-                Password = 1234567
+                //Password = 1234567
             };
             userManager.Add(user);
-            userManager.GetAll();
+            
         }
 
         private static void CustomerTest()
